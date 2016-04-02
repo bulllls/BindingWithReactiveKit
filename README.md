@@ -9,7 +9,7 @@ However, its awesome creator [Srđan Rašić](https://github.com/srdanrasic) now
 
 # The app
 
-![ReactiveKit app](http://i.giphy.com/3o7iN6uySqBSuneTok.gif)
+See [my article](http://txt.intothespirit.com/articles/binding-with-reactivekit/) which includes a nice GIF.
 
 # Setup
 
