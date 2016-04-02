@@ -23,7 +23,7 @@
 
 import Foundation
 import UIKit
-import Bond
+import ReactiveKit
 import DatePickerCell
 
 
@@ -52,18 +52,20 @@ class SettingsViewController: UITableViewController {
   }
   
   func bindViewModel() {
-    guard let viewModel = viewModel else {
-      return
-    }
-    viewModel.creativeCommons.bidirectionalBindTo(creativeCommonsSwitch.bnd_on)
-    viewModel.dateFilter.bidirectionalBindTo(filterDatesSwitch.bnd_on)
+    guard let viewModel = viewModel else { return }
     
-    let opacity = viewModel.dateFilter.map { $0 ? CGFloat(1.0) : CGFloat(0.5) }
-    opacity.bindTo(minPickerCell.leftLabel.bnd_alpha)
-    opacity.bindTo(maxPickerCell.leftLabel.bnd_alpha)
-    opacity.bindTo(minPickerCell.rightLabel.bnd_alpha)
-    opacity.bindTo(maxPickerCell.rightLabel.bnd_alpha)
-
+    viewModel.creativeCommons.bindTo(creativeCommonsSwitch.rOn)
+    creativeCommonsSwitch.rOn.bindTo(viewModel.creativeCommons)
+    
+    viewModel.dateFilter.bindTo(filterDatesSwitch.rOn)
+    filterDatesSwitch.rOn.bindTo(viewModel.dateFilter)
+    
+    let opacity = viewModel.dateFilter.map { $0 ? CGFloat(1) : CGFloat(0.5) }
+    opacity.bindTo(minPickerCell.leftLabel.rAlpha)
+    opacity.bindTo(maxPickerCell.leftLabel.rAlpha)
+    opacity.bindTo(minPickerCell.rightLabel.rAlpha)
+    opacity.bindTo(maxPickerCell.rightLabel.rAlpha)
+    
     bind(viewModel.minUploadDate, picker: minPickerCell)
     bind(viewModel.maxUploadDate, picker: maxPickerCell)
   }
@@ -85,15 +87,18 @@ class SettingsViewController: UITableViewController {
     return datePickerCell.datePickerHeight()
   }
   
+  // The DatePickerCells don't support direct binding with bindTo as they don't implement
+  // the BindableType protocol. This method implements 'manual' two-way binding by
+  // observing both the model and the date picker.
   private func bind(modelDate: Observable<NSDate>, picker: DatePickerCell) {
-    modelDate.observe {
-      event in
+    modelDate.observe { event in
       picker.date = event
     }
     
-    picker.datePicker.bnd_date.observe {
-      event in
+    picker.datePicker.rDate.observe { event in
       modelDate.value = event
     }
   }
+  
 }
+

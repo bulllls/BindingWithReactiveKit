@@ -21,45 +21,54 @@
 */
 
 import Foundation
-import Bond
+import ReactiveKit
 
 class PhotoSearchViewModel {
+  
+  // Metadata from Settings screen.
+  let searchMetadataViewModel = PhotoSearchMetadataViewModel()
+  
+  let searchString = Observable<String?>("")
+  let searchResults = ObservableCollection<[Photo]>([])
+  
+  let validSearchText = Observable<Bool>(false)
+  let searchInProgress = Observable<Bool>(false)
+  
+  // FIXME: implement equivalent of Bond's EventProducer<String>()
+  let errorMessages = Observable<String?>("")
+  
   
   private let searchService: PhotoSearch = {
     let apiKey = NSBundle.mainBundle().objectForInfoDictionaryKey("apiKey") as! String
     return PhotoSearch(key: apiKey)
   }()
   
-  let searchMetadataViewModel = PhotoSearchMetadataViewModel()
-  let searchString = Observable<String?>("")
-  let validSearchText = Observable<Bool>(false)
-  let searchResults = ObservableArray<Photo>()
-  let searchInProgress = Observable<Bool>(false)
-  let errorMessages = EventProducer<String>()
   
   init() {
     searchString.value = "Bond"
     
-    searchString.map { $0!.characters.count > 3 }
+    searchString
+      .map { $0?.characters.count > 3 }
       .bindTo(validSearchText)
     
     searchString
-      .filter { $0!.characters.count > 3 }
-      .throttle(0.5, queue: Queue.Main)
-      .observe {
-        [unowned self] text in
+      .filter { $0?.characters.count > 3 }
+      .throttle(0.5, on: Queue.main)
+      .observe { [unowned self] text in
         self.executeSearch(text!)
-      }
+    }
     
-    combineLatest(searchMetadataViewModel.dateFilter, searchMetadataViewModel.maxUploadDate,
-      searchMetadataViewModel.minUploadDate, searchMetadataViewModel.creativeCommons)
-      .throttle(0.5, queue: Queue.Main)
-      .observe {
-        [unowned self] _ in
+    // Observe if setting in the Settings screen changes. If yes, search.
+    combineLatest(
+      searchMetadataViewModel.dateFilter,
+      searchMetadataViewModel.minUploadDate,
+      searchMetadataViewModel.maxUploadDate,
+      searchMetadataViewModel.creativeCommons
+      ).throttle(0.5, on: Queue.main)
+      .observe { [unowned self] text in
         self.executeSearch(self.searchString.value!)
-      }
+    }
   }
-  
   
   func executeSearch(text: String) {
     var query = PhotoQuery()
@@ -71,16 +80,21 @@ class PhotoSearchViewModel {
     
     searchInProgress.value = true
     
-    searchService.findPhotos(query) {
-      [unowned self] result in
+    searchService.findPhotos(query) { result in
+      // async search completed
       self.searchInProgress.value = false
+      
       switch result {
       case .Success(let photos):
+        print("500px API returned \(photos.count) photos")
         self.searchResults.removeAll()
-        self.searchResults.insertContentsOf(photos, atIndex: 0)
+        self.searchResults.insertContentsOf(photos, at: 0)
       case .Error:
-        self.errorMessages.next("There was an API request issue of some sort. Go ahead, hit me with that 1-star review!")
+        print("Sad face :-(")
+        self.errorMessages.next("There was an API issue. Sad face :-(")
       }
     }
   }
+  
+  
 }

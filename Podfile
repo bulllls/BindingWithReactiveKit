@@ -1,4 +1,5 @@
 use_frameworks!
 
-pod 'Bond', '4.3.0'
+pod 'ReactiveKit'
+pod 'ReactiveUIKit'
 pod 'DatePickerCell', '1.0.4'

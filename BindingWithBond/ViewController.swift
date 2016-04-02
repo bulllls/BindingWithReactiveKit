@@ -21,6 +21,8 @@
 */
 
 import UIKit
+import ReactiveKit
+import ReactiveUIKit
 
 class ViewController: UIViewController {
   
@@ -36,49 +38,60 @@ class ViewController: UIViewController {
   }
   
   func bindViewModel() {
-    viewModel.searchString.bidirectionalBindTo(searchTextField.bnd_text)
+    // Connect the textfield to the underlying view model (bi-directional binding).
+    viewModel.searchString.bindTo(searchTextField.rText)
+    searchTextField.rText.bindTo(viewModel.searchString)
     
+    
+    // Highlight invalid (to short) search text.
     viewModel.validSearchText
       .map { $0 ? UIColor.blackColor() : UIColor.redColor() }
-      .bindTo(searchTextField.bnd_textColor)
+      .bindTo(searchTextField.rTextColor)
     
-    viewModel.searchResults.lift().bindTo(resultsTable) { indexPath, dataSource, tableView in
+    
+    // Show search activity.
+    viewModel.searchInProgress
+      .map { !$0 }
+      .bindTo(activityIndicator.rHidden)
+    
+    viewModel.searchInProgress
+      .map { $0 ? CGFloat(0.5) : CGFloat(1) }
+      .bindTo(resultsTable.rAlpha)
+    
+    
+    // Bind the found photos array (ObservableCollection) to the table view.
+    viewModel.searchResults.bindTo(resultsTable) { (indexPath, dataSource, tableView) -> UITableViewCell in
       let cell = tableView.dequeueReusableCellWithIdentifier("MyCell", forIndexPath: indexPath) as! PhotoTableViewCell
-      let photo = dataSource[indexPath.section][indexPath.row]
+      let photo = dataSource[indexPath.row]
       cell.title.text = photo.title
-      
-      let qualityOfServiceClass = QOS_CLASS_BACKGROUND
-      let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
       cell.photo.image = nil
-      dispatch_async(backgroundQueue) {
+      
+      Queue.background.context {
         if let imageData = NSData(contentsOfURL: photo.url) {
-          dispatch_async(dispatch_get_main_queue()) {
+          Queue.main.context {
             cell.photo.image = UIImage(data: imageData)
           }
         }
       }
+      
       return cell
     }
     
-    viewModel.searchInProgress
-      .map { !$0 }.bindTo(activityIndicator.bnd_hidden)
     
-    viewModel.searchInProgress
-      .map { $0 ? CGFloat(0.5) : CGFloat(1.0) }
-      .bindTo(resultsTable.bnd_alpha)
-    
-    viewModel.errorMessages.observe {
-      [unowned self] error in
-      
-      let alertController = UIAlertController(title: "Something went wrong :-(", message: error, preferredStyle: .Alert)
-      self.presentViewController(alertController, animated: true, completion: nil)
-      let actionOk = UIAlertAction(title: "OK", style: .Default,
-        handler: { action in alertController.dismissViewControllerAnimated(true, completion: nil) })
-      
-      alertController.addAction(actionOk)
+    // Display error messages as UIAlert if there are some :(
+    viewModel.errorMessages
+      .filter { $0?.characters.count > 0 }
+      .observe { [unowned self] error in
+        let alertController = UIAlertController(title: "Something went wrong", message: error, preferredStyle: .Alert)
+        self.presentViewController(alertController, animated: true, completion: nil)
+        
+        let actionOk = UIAlertAction(title: "OK", style: .Default, handler: { action in
+          alertController.dismissViewControllerAnimated(true, completion: nil)
+        })
+        
+        alertController.addAction(actionOk)
     }
   }
-  
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if segue.identifier == "ShowSettings" {
       let navVC = segue.destinationViewController as! UINavigationController
