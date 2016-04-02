@@ -9,7 +9,7 @@ However, its awesome creator [Srđan Rašić](https://github.com/srdanrasic) now
 
 # The app
 
-<iframe src="//giphy.com/embed/3o7iN6uySqBSuneTok" width="480" height="849" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/swift-ios-binding-3o7iN6uySqBSuneTok">via GIPHY</a></p>
+![ReactiveKit app](http://i.giphy.com/3o7iN6uySqBSuneTok.gif)
 
 # Setup
 
