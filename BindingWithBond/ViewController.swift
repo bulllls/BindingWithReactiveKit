@@ -80,7 +80,6 @@ class ViewController: UIViewController {
     
     // Display error messages as UIAlert if there are some :(
     viewModel.errorMessages
-      .filter { $0?.characters.count > 0 }
       .observe { [unowned self] error in
         let alertController = UIAlertController(title: "Something went wrong", message: error, preferredStyle: .Alert)
         self.presentViewController(alertController, animated: true, completion: nil)
@@ -92,6 +91,7 @@ class ViewController: UIViewController {
         alertController.addAction(actionOk)
     }
   }
+  
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if segue.identifier == "ShowSettings" {
       let navVC = segue.destinationViewController as! UINavigationController

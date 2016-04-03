@@ -34,8 +34,7 @@ class PhotoSearchViewModel {
   let validSearchText = Observable<Bool>(false)
   let searchInProgress = Observable<Bool>(false)
   
-  // FIXME: implement equivalent of Bond's EventProducer<String>()
-  let errorMessages = Observable<String?>("")
+  let errorMessages = ActiveStream<String>()
   
   
   private let searchService: PhotoSearch = {
@@ -80,7 +79,7 @@ class PhotoSearchViewModel {
     
     searchInProgress.value = true
     
-    searchService.findPhotos(query) { result in
+    searchService.findPhotos(query) { [unowned self] result in
       // async search completed
       self.searchInProgress.value = false
       
