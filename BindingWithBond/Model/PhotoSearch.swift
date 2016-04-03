@@ -66,6 +66,11 @@ class PhotoSearch {
       
       // dispatch onto the main thread
       dispatch_async(dispatch_get_main_queue()) {
+        if data == nil || error != nil {
+          callback(Result.Error(PhotoSearchError.RequestError))
+          return
+        }
+
         do {
           // parse the results, then filter based on date
           let result = try self.parseSearchResults(data!)
