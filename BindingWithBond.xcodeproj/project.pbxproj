@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1028D36FD1EA2FBF9A2BC07A /* Pods_BindingWithBond.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF7769BEB66CB7467338FA4A /* Pods_BindingWithBond.framework */; };
 		3C8285621C19D8BB00ECF06C /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C82855D1C19D8BB00ECF06C /* Photo.swift */; };
 		3C8285631C19D8BB00ECF06C /* PhotoQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C82855E1C19D8BB00ECF06C /* PhotoQuery.swift */; };
 		3C8285641C19D8BB00ECF06C /* PhotoSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C82855F1C19D8BB00ECF06C /* PhotoSearch.swift */; };
@@ -21,7 +22,6 @@
 		3CFCDDE81C1971B600B061E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3CFCDDE71C1971B600B061E0 /* Assets.xcassets */; };
 		3CFCDDEB1C1971B600B061E0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CFCDDE91C1971B600B061E0 /* LaunchScreen.storyboard */; };
 		3CFCDDF61C1981C100B061E0 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CFCDDF51C1981C100B061E0 /* SettingsViewController.swift */; };
-		BBEB682F0DD58405B31D53EA /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF54F22CDFC77198915DAFB /* Pods.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +43,9 @@
 		3CFCDDEA1C1971B600B061E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3CFCDDEC1C1971B600B061E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3CFCDDF51C1981C100B061E0 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		5A0C28FEFB47F1111DF23F47 /* Pods-BindingWithBond.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BindingWithBond.release.xcconfig"; path = "Pods/Target Support Files/Pods-BindingWithBond/Pods-BindingWithBond.release.xcconfig"; sourceTree = "<group>"; };
+		A239FA72E3D751097153D2B6 /* Pods-BindingWithBond.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BindingWithBond.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BindingWithBond/Pods-BindingWithBond.debug.xcconfig"; sourceTree = "<group>"; };
+		AF7769BEB66CB7467338FA4A /* Pods_BindingWithBond.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BindingWithBond.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF686A697F9B857C4238296F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -51,7 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BBEB682F0DD58405B31D53EA /* Pods.framework in Frameworks */,
+				1028D36FD1EA2FBF9A2BC07A /* Pods_BindingWithBond.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				2FF54F22CDFC77198915DAFB /* Pods.framework */,
+				AF7769BEB66CB7467338FA4A /* Pods_BindingWithBond.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -127,6 +131,8 @@
 			children = (
 				EF686A697F9B857C4238296F /* Pods.debug.xcconfig */,
 				050988D27D9F1E0624C5B29C /* Pods.release.xcconfig */,
+				A239FA72E3D751097153D2B6 /* Pods-BindingWithBond.debug.xcconfig */,
+				5A0C28FEFB47F1111DF23F47 /* Pods-BindingWithBond.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -138,12 +144,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3CFCDDEF1C1971B600B061E0 /* Build configuration list for PBXNativeTarget "BindingWithBond" */;
 			buildPhases = (
-				4F42A1917D0738CBB3583237 /* Check Pods Manifest.lock */,
+				4F42A1917D0738CBB3583237 /* 📦 Check Pods Manifest.lock */,
 				3CFCDDD91C1971B600B061E0 /* Sources */,
 				3CFCDDDA1C1971B600B061E0 /* Frameworks */,
 				3CFCDDDB1C1971B600B061E0 /* Resources */,
-				C157ACA84A9AAD50D9F11673 /* Embed Pods Frameworks */,
-				CD66FCCFDD2AE8B26068E7A0 /* Copy Pods Resources */,
+				C157ACA84A9AAD50D9F11673 /* 📦 Embed Pods Frameworks */,
+				CD66FCCFDD2AE8B26068E7A0 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -201,14 +207,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4F42A1917D0738CBB3583237 /* Check Pods Manifest.lock */ = {
+		4F42A1917D0738CBB3583237 /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -216,34 +222,34 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		C157ACA84A9AAD50D9F11673 /* Embed Pods Frameworks */ = {
+		C157ACA84A9AAD50D9F11673 /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "📦 Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BindingWithBond/Pods-BindingWithBond-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		CD66FCCFDD2AE8B26068E7A0 /* Copy Pods Resources */ = {
+		CD66FCCFDD2AE8B26068E7A0 /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "📦 Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BindingWithBond/Pods-BindingWithBond-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -372,7 +378,7 @@
 		};
 		3CFCDDF01C1971B600B061E0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EF686A697F9B857C4238296F /* Pods.debug.xcconfig */;
+			baseConfigurationReference = A239FA72E3D751097153D2B6 /* Pods-BindingWithBond.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = BindingWithBond/Info.plist;
@@ -384,7 +390,7 @@
 		};
 		3CFCDDF11C1971B600B061E0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 050988D27D9F1E0624C5B29C /* Pods.release.xcconfig */;
+			baseConfigurationReference = 5A0C28FEFB47F1111DF23F47 /* Pods-BindingWithBond.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = BindingWithBond/Info.plist;
