@@ -13,6 +13,8 @@ See [my article](http://txt.intothespirit.com/articles/binding-with-reactivekit/
 
 # Setup
 
+__Note:__ the branch `reactivekit-2` currently shows the usage of __ReactiveKit 2.0.0-beta4__.
+
 First, clone the project:
 
 ```bash

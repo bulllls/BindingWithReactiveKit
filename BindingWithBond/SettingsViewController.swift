@@ -90,12 +90,12 @@ class SettingsViewController: UITableViewController {
   // The DatePickerCells don't support direct binding with bindTo as they don't implement
   // the BindableType protocol. This method implements 'manual' two-way binding by
   // observing both the model and the date picker.
-  private func bind(modelDate: Observable<NSDate>, picker: DatePickerCell) {
-    modelDate.observe { event in
+  private func bind(modelDate: Property<NSDate>, picker: DatePickerCell) {
+    modelDate.observeNext { event in
       picker.date = event
     }
     
-    picker.datePicker.rDate.observe { event in
+    picker.datePicker.rDate.observeNext { event in
       modelDate.value = event
     }
   }

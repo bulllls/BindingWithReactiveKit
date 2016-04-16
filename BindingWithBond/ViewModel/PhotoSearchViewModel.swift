@@ -28,13 +28,13 @@ class PhotoSearchViewModel {
   // Metadata from Settings screen.
   let searchMetadataViewModel = PhotoSearchMetadataViewModel()
   
-  let searchString = Observable<String?>("")
-  let searchResults = ObservableCollection<[Photo]>([])
+  let searchString = Property<String?>("")
+  let searchResults = CollectionProperty<[Photo]>([])
   
-  let validSearchText = Observable<Bool>(false)
-  let searchInProgress = Observable<Bool>(false)
+  let validSearchText = Property<Bool>(false)
+  let searchInProgress = Property<Bool>(false)
   
-  let errorMessages = ActiveStream<String>()
+  let errorMessages = PushStream<String>()
   
   
   private let searchService: PhotoSearch = {
@@ -52,8 +52,8 @@ class PhotoSearchViewModel {
     
     searchString
       .filter { $0?.characters.count > 3 }
-      .throttle(0.5, on: Queue.main)
-      .observe { [unowned self] text in
+      .throttle(0.5)
+      .observeNext { [unowned self] text in
         self.executeSearch(text!)
     }
     
@@ -63,12 +63,13 @@ class PhotoSearchViewModel {
       searchMetadataViewModel.minUploadDate,
       searchMetadataViewModel.maxUploadDate,
       searchMetadataViewModel.creativeCommons
-      ).throttle(0.5, on: Queue.main)
-      .observe { [unowned self] text in
+      ).throttle(0.5)
+      .observeNext { [unowned self] text in
         self.executeSearch(self.searchString.value!)
     }
   }
   
+  // use Operation type for search?
   func executeSearch(text: String) {
     var query = PhotoQuery()
     query.text = searchString.value ?? ""

@@ -80,7 +80,7 @@ class ViewController: UIViewController {
     
     // Display error messages as UIAlert if there are some :(
     viewModel.errorMessages
-      .observe { [unowned self] error in
+      .observeNext { [unowned self] error in
         let alertController = UIAlertController(title: "Something went wrong", message: error, preferredStyle: .Alert)
         self.presentViewController(alertController, animated: true, completion: nil)
         
